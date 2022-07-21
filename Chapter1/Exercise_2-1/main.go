@@ -3,15 +3,15 @@ package main
 import "fmt"
 
 func main() {
-	for row := 0; row < 8; row += 2 {
-		for i := 0; i < row/2; i++ {
+	for row := 0; row <= 3; row++ {
+		totalCharacterCount := 8
+		spaceCount := row + row
+		hashCount := totalCharacterCount - spaceCount
+		for space := 0; space < spaceCount/2; space++ {
 			fmt.Print(" ")
 		}
-		for hashNum := 0; hashNum <= 7-row; hashNum++ {
+		for hash := 0; hash < hashCount; hash++ {
 			fmt.Print("#")
-		}
-		for i := 0; i < row/2; i++ {
-			fmt.Print(" ")
 		}
 		fmt.Print("\n")
 	}
