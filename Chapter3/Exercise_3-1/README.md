@@ -6,8 +6,8 @@ The example student struct:
 
 ```go
 type student struct {
-    int grade
-    int studentID
-    string name
+    grade     int
+    studentID int
+    name      string
 }
 ```
