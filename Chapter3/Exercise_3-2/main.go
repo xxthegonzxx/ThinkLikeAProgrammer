@@ -42,11 +42,19 @@ func main() {
 	for agent := 0; agent < NUM_AGENTS; agent++ {
 		sort.Sort(orderedMonthlySales(sales[agent][:]))
 		for month := 0; month < NUM_MONTHS; month++ {
-			if month == 5 || month == 6 {
-				agentSumArray = append(agentSumArray, sales[agent][month])
+			if NUM_MONTHS%2 == 0 {
+				firstMiddle := (NUM_MONTHS / 2)
+				firstMiddle = sales[agent][firstMiddle-1]
+				secondMiddle := (NUM_MONTHS / 2)
+				secondMiddle = sales[agent][secondMiddle]
+				agentSumArray = append(agentSumArray, firstMiddle, secondMiddle)
+			} else {
+				oddMedian := (NUM_MONTHS + 1) / 2
+				oddMedian = sales[agent][oddMedian-1]
+				agentSumArray = append(agentSumArray, oddMedian)
 			}
 		}
-		agentMedian := arrayAverage(agentSumArray, 2)
+		agentMedian := arrayAverage(agentSumArray, len(agentSumArray))
 		if agentMedian > highestMedian {
 			highestMedian = agentMedian
 		}
