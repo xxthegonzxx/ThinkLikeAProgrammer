@@ -1,7 +1,3 @@
-// To find the median:
-// Arrange the data points from smallest to largest.
-// If the number of data points is odd, the median is the middle data point in the list.
-// If the number of data points is even, the median is the average of the two middle data points in the list.
 package main
 
 import (
@@ -12,6 +8,7 @@ import (
 const NUM_AGENTS = 3
 const NUM_MONTHS = 12
 
+var agentSumArray []int
 var sales = [NUM_AGENTS][NUM_MONTHS]int{
 	{1856, 498, 30924, 87478, 328, 2653, 387, 3754, 387587, 2873, 276, 32},
 	{5865, 5456, 3983, 6464, 9957, 4785, 3875, 3838, 4959, 1122, 7766, 2534},
@@ -35,24 +32,21 @@ func arrayAverage(intArray []int, ARRAY_SIZE int) int {
 	return average
 }
 
-func main() {
-	var agentSumArray []int
+// findMedian, takes the number of months, and if even, finds the median of the
+// two middle values. If odd, finds the median of the single middle value.
+func findMedian(salesArray [NUM_AGENTS][NUM_MONTHS]int, NUM_MONTHS int) int {
 	highestMedian := 0
-	// First Sort the data
-	for agent := 0; agent < NUM_AGENTS; agent++ {
-		sort.Sort(orderedMonthlySales(sales[agent][:]))
-		for month := 0; month < NUM_MONTHS; month++ {
-			if NUM_MONTHS%2 == 0 {
-				firstMiddle := (NUM_MONTHS / 2)
-				firstMiddle = sales[agent][firstMiddle-1]
-				secondMiddle := (NUM_MONTHS / 2)
-				secondMiddle = sales[agent][secondMiddle]
-				agentSumArray = append(agentSumArray, firstMiddle, secondMiddle)
-			} else {
-				oddMedian := (NUM_MONTHS + 1) / 2
-				oddMedian = sales[agent][oddMedian-1]
-				agentSumArray = append(agentSumArray, oddMedian)
-			}
+	firstMiddle := (NUM_MONTHS / 2)
+	secondMiddle := (NUM_MONTHS / 2)
+	for month := range sales {
+		if NUM_MONTHS%2 == 0 {
+			firstMiddle := sales[month][firstMiddle-1]
+			secondMiddle := sales[month][secondMiddle]
+			agentSumArray = append(agentSumArray, firstMiddle, secondMiddle)
+		} else {
+			oddMedian := (NUM_MONTHS + 1) / 2
+			oddMedian = sales[month][oddMedian-1]
+			agentSumArray = append(agentSumArray, oddMedian)
 		}
 		agentMedian := arrayAverage(agentSumArray, len(agentSumArray))
 		if agentMedian > highestMedian {
@@ -60,5 +54,14 @@ func main() {
 		}
 		agentSumArray = nil
 	}
-	fmt.Println("Highest Median:", highestMedian)
+	return highestMedian
+}
+
+func main() {
+	// First Sort the data
+	for agent := 0; agent < NUM_AGENTS; agent++ {
+		sort.Sort(orderedMonthlySales(sales[agent][:]))
+	}
+	// Then find the highest median sales
+	fmt.Println("Highest Median:", findMedian(sales, NUM_MONTHS))
 }
