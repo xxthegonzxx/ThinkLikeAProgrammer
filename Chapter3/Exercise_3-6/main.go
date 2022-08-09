@@ -36,8 +36,8 @@ func rot13(b rune) rune {
 }
 
 // plainTextReader accepts a plaintext string, converts the string to
-// uppercase letters and uses the rot13 function to return a string
-// of encoded/decoded text.
+// uppercase letters and uses the rot13 function to help it return a
+// string of encoded/decoded text.
 func plainTextReader(s string) string {
 	upperPlainText := strings.ToUpper(s)
 	for i, v := range upperPlainText {
