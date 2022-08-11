@@ -1,22 +1,47 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
-var intArray = []int{15, 11, 66, 39, 2395, 11, 11, 11, 33, 34, 33, 76, 67, 33, 11, 34, 90, 3, 1, 2, 8, 4, 2, 3, 6, 7, 0, 2}
+var ARRAY_SIZE = 10
+var intArray = make([]int, ARRAY_SIZE)
+var modeCount = 1
 
-func main() {
-	highestFrequency := 0
-	mostFrequent := 0
+func generateArr(n int) []int {
+	rand.Seed(time.Now().Unix())
+	for i := 0; i < n; i++ {
+		intArray[i] = rand.Int() % 10
+	}
+	return intArray
+}
+
+func findMode(arr []int) []int {
+	mode := []int{}
 	occurrences := map[int]int{}
-	for _, v := range intArray {
+	for _, v := range arr {
 		occurrences[v]++
 	}
-
 	for number, count := range occurrences {
-		if count >= highestFrequency {
-			highestFrequency = count
-			mostFrequent = number
+		fmt.Println(number, count)
+		if count == modeCount {
+			mode = append(mode, number)
+		} else if count > modeCount {
+			modeCount = count
+			mode = []int{number}
 		}
 	}
-	fmt.Printf("%d appears %d times\n", mostFrequent, highestFrequency)
+	if modeCount == 1 {
+		fmt.Println("No mode exists.")
+	} else {
+		fmt.Printf("The mode is %d and it appeared %d times.", mode, modeCount)
+	}
+	return mode
+}
+
+func main() {
+	generateArr(ARRAY_SIZE)
+	findMode(intArray)
 }
