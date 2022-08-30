@@ -15,11 +15,10 @@ func subString(arrayString []string, startPos int, length int) []string {
 		log.Fatal("Length out of bounds.")
 	}
 	newArrString = append(newArrString, arrayString[startPos-1:startPos-1+length]...)
-	fmt.Println(newArrString)
 	return newArrString
 }
 
 func main() {
 	arrayString := []string{"a", "b", "c", "d", "e", "f", "g"}
-	subString(arrayString, 1, 4)
+	fmt.Println(subString(arrayString, 3, 4))
 }
