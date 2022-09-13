@@ -28,7 +28,7 @@ func recursiveOddParity(strArray []string, size int) bool {
 }
 
 func main() {
-	strArray := []string{"1"}
+	strArray := []string{"1", "0", "1", "1", "0"}
 	printiterativeOddParity := iterativeOddParity(strArray)
 	fmt.Println(printiterativeOddParity)
 	printRecursiveOddParity := recursiveOddParity(strArray, len(strArray))
