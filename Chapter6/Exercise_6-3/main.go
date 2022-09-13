@@ -18,7 +18,7 @@ func recursiveNumOccurrences(intArr []int, target int) int {
 		return 0
 	}
 	lastTarget := intArr[size-1]
-	count := iterativeNumOcurrences(intArr[:size-1], target)
+	count := recursiveNumOccurrences(intArr[:size-1], target)
 	if target == lastTarget {
 		count++
 	}

@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func recursiveIsSorted(intArray []int, n int) bool {
+func iterativeIsSorted(intArray []int, n int) bool {
 	if n == 0 || n == 1 {
 		return true
 	}
@@ -19,6 +19,6 @@ func recursiveIsSorted(intArray []int, n int) bool {
 func main() {
 	dupSorted := []int{20, 21, 45, 89, 89, 90}
 	dupUnsorted := []int{20, 20, 78, 98, 99, 97}
-	fmt.Println(recursiveIsSorted(dupSorted, len(dupSorted)))
-	fmt.Println(recursiveIsSorted(dupUnsorted, len(dupUnsorted)))
+	fmt.Println(iterativeIsSorted(dupSorted, len(dupSorted)))
+	fmt.Println(iterativeIsSorted(dupUnsorted, len(dupUnsorted)))
 }
