@@ -8,10 +8,6 @@ type treeNode struct {
 	right *treeNode
 }
 
-type treePtr struct {
-	head *treeNode
-}
-
 func recurseBinarySearchTree(n *treeNode) bool {
 	if n == nil {
 		return false

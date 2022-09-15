@@ -41,7 +41,7 @@ func (t *treeNode) PrintInorder() {
 }
 
 func main() {
-	// Example Binary Search Tree
+	// Example Binary Tree
 	//	 	100
 	//	   /   \
 	//	 90     80

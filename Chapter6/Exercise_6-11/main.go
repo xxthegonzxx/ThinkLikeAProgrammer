@@ -8,10 +8,6 @@ type treeNode struct {
 	right *treeNode
 }
 
-type treePtr struct {
-	head *treeNode
-}
-
 func recurseInsertBinarySearchTree(n *treeNode, num int) error {
 	if n == nil {
 		return fmt.Errorf("Tree is NIL.")
