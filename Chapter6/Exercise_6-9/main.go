@@ -12,15 +12,6 @@ type treePtr struct {
 	head *treeNode
 }
 
-func (ptr *treePtr) append(num int) {
-	newNode := treeNode{
-		data:  num,
-		left:  ptr.head,
-		right: ptr.head,
-	}
-	ptr.head = &newNode
-}
-
 func recurseIsBinaryHeap(n *treeNode) bool {
 	if n == nil {
 		return false
@@ -36,17 +27,36 @@ func recurseIsBinaryHeap(n *treeNode) bool {
 	return false
 }
 
+// Inorder traversal is a way of traversing through the binary tree
+// by where the left child is visited first followed by the parent
+// and then the right child of the node.
+func (t *treeNode) PrintInorder() {
+	if t == nil {
+		return
+	}
+
+	t.left.PrintInorder()
+	fmt.Println(t.data)
+	t.right.PrintInorder()
+}
+
 func main() {
-	intBinaryList := treePtr{}
-	intBinaryList.append(10)
-	intBinaryList.append(20)
-	intBinaryList.append(30)
-	intBinaryList.append(40)
-	intBinaryList.append(45)
-	intBinaryList.append(50)
-	intBinaryList.append(60)
-	intBinaryList.append(70)
-	intBinaryList.append(100)
-	isBinaryHeap := recurseIsBinaryHeap(intBinaryList.head)
-	fmt.Println(isBinaryHeap)
+	// Example Binary Search Tree
+	//	 	100
+	//	   /   \
+	//	 90     80
+	//	/  \   /  \
+	// 70  60 50  40
+
+	node7 := &treeNode{40, nil, nil}
+	node6 := &treeNode{50, nil, nil}
+	node5 := &treeNode{60, nil, nil}
+	node4 := &treeNode{70, nil, nil}
+	node3 := &treeNode{80, node6, node7}
+	node2 := &treeNode{90, node4, node5}
+	rootNode := &treeNode{100, node2, node3}
+
+	isBinaryHeap := recurseIsBinaryHeap(rootNode)
+	fmt.Println("Is Binary Heap?", isBinaryHeap)
+	rootNode.PrintInorder()
 }
