@@ -87,9 +87,21 @@ func recursiveBinarySum(t *treeNode) (int, int) {
 	return sum, nodeCount
 }
 
-func average(n *treeNode) int {
-	sum, nodeCount := recursiveBinarySum(n)
+func average(t *treeNode) int {
+	sum, nodeCount := recursiveBinarySum(t)
 	return sum / nodeCount
+}
+
+func mode(t *treeNode, target int) int {
+	if t == nil {
+		return 0
+	}
+	if t.data == target {
+		count := mode(t.left, target) + mode(t.right, target) + 1
+		return count
+	}
+	count := mode(t.left, target) + mode(t.right, target)
+	return count
 }
 
 func main() {
@@ -105,4 +117,6 @@ func main() {
 
 	median := recursiveBinaryMedian(rootNode)
 	fmt.Println("Median:", median)
+	mode := mode(rootNode, 5)
+	fmt.Println(mode)
 }
