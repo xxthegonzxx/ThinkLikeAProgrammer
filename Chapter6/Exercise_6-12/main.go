@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type treeNode struct {
 	data  int
@@ -36,6 +39,42 @@ func recursiveInsertBinarySearch(n *treeNode, num int) int {
 	return 0
 }
 
+func recursiveBinaryMedian(t *treeNode) int {
+	_, nodeCount := recursiveBinarySum(t)
+	findEvenMiddle := (nodeCount / 2)
+	findOddMiddle := (nodeCount + 1) / 2
+
+	intSlice := inOrderTraversalList(t)
+	sort.Ints(intSlice)
+	if t == nil {
+		return 0
+	}
+	if nodeCount%2 == 0 {
+		firstMiddle := intSlice[findEvenMiddle-1]
+		secondMiddle := intSlice[findEvenMiddle]
+		evenMedian := firstMiddle + secondMiddle/2
+		return evenMedian
+	} else {
+		oddMedian := intSlice[findOddMiddle-1]
+		return oddMedian
+	}
+}
+
+func inOrderTraversalList(t *treeNode) []int {
+	intSlice := []int{t.data}
+	if t == nil {
+		return intSlice
+	}
+	if t.left != nil {
+		intSlice = append(intSlice, inOrderTraversalList(t.left)...)
+	}
+
+	if t.right != nil {
+		intSlice = append(intSlice, inOrderTraversalList(t.right)...)
+	}
+	return intSlice
+}
+
 func recursiveBinarySum(t *treeNode) (int, int) {
 	if t == nil {
 		return 0, 0
@@ -58,8 +97,12 @@ func main() {
 	rootNode := &treeNode{data: 10}
 	recursiveInsertBinarySearch(rootNode, 5)
 	recursiveInsertBinarySearch(rootNode, 15)
+	recursiveInsertBinarySearch(rootNode, 20)
+	recursiveInsertBinarySearch(rootNode, 1)
 
 	average := average(rootNode)
-	fmt.Println(average)
+	fmt.Println("Average:", average)
 
+	median := recursiveBinaryMedian(rootNode)
+	fmt.Println("Median:", median)
 }
